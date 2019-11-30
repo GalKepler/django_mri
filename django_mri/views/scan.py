@@ -1,11 +1,8 @@
-import bokeh
+# import bokeh
 import os
 
-from bokeh.plotting import figure
-from bokeh.embed import components
-
 # from bokeh.server.server import Server
-from bokeh.embed import server_document
+# from bokeh.embed import server_document
 from django.db.models.query import QuerySet
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -162,6 +159,6 @@ class ScanViewSet(DefaultsMixin, viewsets.ModelViewSet):
         # plot = app.create_main_layout()
         # script, div = components(plot, wrap_script=False)
         return Response(
-            {"bokehVersion": bokeh.__version__, "script": server_document()[1:]}
+            # {"bokehVersion": bokeh.__version__, "script": server_document()[1:]}
             # {"bokehVersion": bokeh.__version__, "div": [div], "script": [script]}
         )
