@@ -15,31 +15,31 @@ set fmri(level) 1
 # 7 : Full first-level analysis
 # 1 : Pre-processing
 # 2 : Statistics
-set fmri(analysis) 1
+set fmri(analysis) $RUN_STAGES
 
 # Use relative filenames
-set fmri(relative_yn) 0
+set fmri(relative_yn) $RELATIVE_FILENAMES
 
 # Balloon help
-set fmri(help_yn) 1
+set fmri(help_yn) 0
 
 # Run Featwatcher
-set fmri(featwatcher_yn) 0
+set fmri(featwatcher_yn) $RUN_FEATWATCHER
 
 # Cleanup first-level standard-space images
-set fmri(sscleanup_yn) 0
+set fmri(sscleanup_yn) $CLEAN_FIRST_LEVEL_STANDARD
 
 # Output directory
-set fmri(outputdir) "outdir"
+set fmri(outputdir) $OUTPUT_DIRECTORY
 
 # TR(s)
-set fmri(tr) cur_TR
+set fmri(tr) $CUR_TR
 
 # Total volumes
-set fmri(npts) n_frames
+set fmri(npts) $NUMBER_OF_VOLUMES
 
 # Delete volumes
-set fmri(ndelete) 0
+set fmri(ndelete) $DELETE_VOLUMES 
 
 # Perfusion tag/control order
 set fmri(tagfirst) 1
@@ -53,24 +53,24 @@ set fmri(multiple) 1
 set fmri(inputtype) 2
 
 # Carry out pre-stats processing?
-set fmri(filtering_yn) 1
+set fmri(filtering_yn) $PRE_STATS_PROCESSING
 
 # Brain/background threshold, %
-set fmri(brain_thresh) 10
+set fmri(brain_thresh) $BRAIN_BACKGROUND_THRESH
 
 # Critical z for design efficiency calculation
-set fmri(critical_z) 5.3
+set fmri(critical_z) $CRITICAL_Z
 
 # Noise level
-set fmri(noise) 0.66
+set fmri(noise) $NOISE_LEVEL
 
 # Noise AR(1)
-set fmri(noisear) 0.34
+set fmri(noisear) $NOISE_AR
 
 # Motion correction
 # 0 : None
 # 1 : MCFLIRT
-set fmri(mc) 1
+set fmri(mc) $MOTION_CORRECTION
 
 # Spin-history (currently obsolete)
 set fmri(sh_yn) 0

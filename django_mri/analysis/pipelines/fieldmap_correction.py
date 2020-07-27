@@ -57,44 +57,53 @@ BIAS_CORRECT_NODE = {
 
 # Pipe creation
 
+# Extract first, B0 volume
 EXTRACT_VOLUME = {
     "source": FSLROI_NODE,
     "source_port": "roi_file",
     "destination": MERGE_NODE,
     "destination_port": "in_files",
 }
+# Generate dual-phase encoded image
 MERGE_PHASEDIFF = {
     "source": MERGE_NODE,
     "source_port": "merged_file",
     "destination": TOPUP_NODE,
     "destination_port": "in_file",
 }
+# perform topup for suceptabillity correction
 PERFORM_TOPUP = {
     "source": TOPUP_NODE,
     "source_port": "out_corrected",
     "destination": MEAN_NODE,
     "destination_port": "in_file",
 }
+# Convert to radians so FSL won't get angry
 RADIANS_PIPE = {
     "source": TOPUP_NODE,
     "source_port": "out_field",
     "destination": MATHS_NODE,
     "destination_port": "in_file",
 }
+# Extract brain and brain mask
 BRAIN_EXTRACT = {
     "source": MEAN_NODE,
     "source_port": "out_file",
     "destination": BET_NODE,
     "destination_port": "in_file",
 }
+# Thermal noise correction - Happens first! 
 DENOISE_EPI = {  ############## multiple inputs from nodes \ user - ask Zvi #############
     "source": BET_NODE,
     "source_port": "mask_file",
     "destination": DENOISE_NODE,
     "destination_port": "mask",
 }
-############## Generate index.txt ##############
-############## User should insert .bvec and .bval as inputs - we shpuld consider automating this ##############
+
+# Eddy currents correction pipe - To be replaced with mrtrix's dwipreproc script!!!
+    # Notes:
+        # Requires index.txt
+        # Currently, users should insert .bvec and .bval as inputs - we should consider automating this.
 
 EDDY_CORRECT = {
     "source": TOPUP_NODE,
@@ -122,13 +131,15 @@ EDDY_CORRECT = {
     "destination_port": "in_mask",
 }
 
-
+# Gibbs oscillation correction pipe
 CORRET_GIBBS = {
     "source": DENOISE_NODE,
     "source_port": "out_file",
     "destination": DEGIBBS_NODE,
     "destination_port": "in_file",
 }
+
+# Bias correction pipe
 BIAS_CORRECT = {
     "source": DEGIBBS_NODE,
     "source_port": "out_file",
