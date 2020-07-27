@@ -1,25 +1,28 @@
 """
 Full DWI preprocessing pipeline.
+
+Steps:
+
+    - Extract b0 from AP
+    - Merge AP_b0 and PA
+    - Create brain mask
+    - Convert to mif (merged, AP)
+    - Denoise initial AP
+    - *dwifslpreproc* AP merged
+    - Gibbs correction
+    - Bias correction
+
+User inputs:
+
+    - *fslroi* node: in_file [AP]
+    - *fslmerge* node: in_files [PA]
+    - mrconvert_1 --> AP: in_bvec [bvec]
+    - mrconvert_1 --> AP: in_bval [bval]
+
 """
 
-# STEPS:
-# - extract b0 from AP
-# - merge AP_b0 and PA
-# - create brain mask
-# - convert to mif (merged, AP)
-# - denoise initial AP
-# - dwifslpreproc AP merged
-# - gibbs correction
-# - bias correction
+# Configrations
 
-### User inputs:
-# - fslroi node: in_file [AP]
-# - fslmerge node: in_files [PA]
-# - mrconvert_1 --> AP: in_bvec [bvec]
-# - mrconvert_1 --> AP: in_bval [bval]
-# -
-# -
-#### Initiate configurations ###
 FSLROI_CONFIGURATION = {
     "t_min": 0,
     "t_size": 1,
@@ -42,7 +45,7 @@ DWIFSLPREPROC_CONFIGURATION = {
 DEGIBBS_CONFIGURATION = {}
 BIAS_CORRECT_CONFIGURATION = {"use_ants": True}
 
-#### Create nodes ####
+# Nodes
 FSLROI_NODE = {
     "analysis_version": "fslroi",
     "configuration": FSLROI_CONFIGURATION,
@@ -73,7 +76,9 @@ BIAS_CORRECT_NODE = {
     "configuration": BIAS_CORRECT_CONFIGURATION,
 }
 
-### Generate pipeline ###
+
+# Pipes
+
 # Extract first, B0 volume
 FIRST_AP_VOLUME_TO_MERGE = {
     "source": FSLROI_NODE,
@@ -94,4 +99,3 @@ PASS_MERGED_MIF_TO_DWIFSLPREPROC = {
     "destination": DWIFSLPREPROC_NODE,
     "destination_port": "se_epi",
 }
-

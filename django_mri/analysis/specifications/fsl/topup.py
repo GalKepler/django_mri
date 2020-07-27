@@ -1,3 +1,10 @@
+"""
+Input and output specification dictionaries for FSL's topup_ script.
+
+.. _topup:
+   https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup/TopupUsersGuide
+"""
+
 from django_analyses.models.input.definitions import (
     FileInputDefinition,
     FloatInputDefinition,
@@ -19,8 +26,10 @@ from django_mri.models.outputs.nifti_output_definition import (
 from pathlib import Path
 import os
 
-FSL_DIR = os.environ["FSL_DIR"]
 
+FSLDIR = os.environ["FSLDIR"]
+
+#: *topup* input specification.
 TOPUP_INPUT_SPECIFICATION = {
     "dwi_file": {
         "type": NiftiInputDefinition,
@@ -58,7 +67,7 @@ TOPUP_INPUT_SPECIFICATION = {
     "config": {
         "type": FileInputDefinition,
         "description": "Path to configuration files specifying command line arguments.",  # noqa: E501
-        "default": Path(Path(FSL_DIR) / "etc" / "flirtsch" / "b02b0.cnf"),
+        "default": Path(Path(FSLDIR) / "etc" / "flirtsch" / "b02b0.cnf"),
     },
     "estmov": {
         "type": IntegerInputDefinition,
@@ -167,6 +176,8 @@ TOPUP_INPUT_SPECIFICATION = {
         "description": "(approximate) resolution (in mm) of warp basis for the different sub-sampling levels.",  # noqa: E501
     },
 }
+
+#: *topup*  output specification.
 TOPUP_OUTPUT_SPECIFICATION = {
     "out_corrected": {
         "type": NiftiOutputDefinition,
