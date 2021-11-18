@@ -4,7 +4,6 @@ Definition of a custom :class:`~django.db.models.Manager` for the
 """
 
 from django.db import models
-
 from django_dicom.models import Patient
 
 

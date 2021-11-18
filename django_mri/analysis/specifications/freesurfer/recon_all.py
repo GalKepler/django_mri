@@ -6,7 +6,6 @@ Input and output specification dictionaries for FreeSurfer's recon_all_ script.
 """
 
 from django.conf import settings
-
 from django_analyses.models.input.definitions import (BooleanInputDefinition,
                                                       DirectoryInputDefinition,
                                                       FileInputDefinition,

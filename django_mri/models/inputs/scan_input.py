@@ -1,5 +1,4 @@
 from django.db import models
-
 from django_analyses.models.input.input import Input
 
 
